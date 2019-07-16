@@ -1,5 +1,4 @@
-import seeder from 'knex-csv-seeder';
-const carsData = require('./cars_data');
+const carsData = require('../cars_data');
 
 function makeVIN() {
   var length = 15
@@ -11,18 +10,22 @@ function makeVIN() {
   }
   return result;
 }
+
 exports.seed = function(knex) {
-  // Deletes ALL existing entries
-  return knex('cars').del()
-  .then(() => {
-    let cars = [];
-    carsData.forEach(car => {
-      car.vin = makeVIN()
-      car.mileage = Math.floor((Math.random() * 180000) + 1)
-      cars.push(car);
-    })
+  let cars = [];
+  carsData.forEach(car => {
+    car.vin = makeVIN()
+    car.mileage = Math.floor((Math.random() * 180000) + 1)
+    cars.push(car);
+  }) 
+
+  return knex('cars').truncate()
+
     .then(function () {
-      // Inserts seed entries
-      return knex('cars').insert([]);
-    });
+      console.log(cars.length)
+        return knex('cars').insert(cars);
+      })
+
+
+
 };
