@@ -9,5 +9,10 @@
   "author": "Lambda School",
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "knex": "^0.19.0",
+    "knex-csv-seeder": "^0.4.1",
+    "sqlite3": "^4.0.9"
   }
 }
